@@ -39,7 +39,7 @@ set to *regional* and set `eu-gb` as the region..
 
 # Creating a simple 'hello world' function via the Web Console
 
-1. Click the Cloud Functions icon in the left menu: \\
+1. Click the Cloud Functions icon in the left menu: \
   ![Cloud functions icon](_images/functions1.png)
 
 2. IMPORTANT: Create a new namespace for our functions:
