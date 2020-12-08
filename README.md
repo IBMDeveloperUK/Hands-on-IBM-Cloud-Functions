@@ -80,4 +80,30 @@ set to *regional* and set `eu-gb` as the region..
 
 ## Calling our function from the CLI
 
-```
+1. First we need to target the `tweakers` namespace
+    ```bash
+    % ibmcloud fn namespace target tweakers
+    ok: whisk namespace set to tweakers
+    ```
+
+2. We can list our functions, we should see the one we just created:
+    ```bash
+    % ibmcloud fn action list
+    actions
+    /25ec8f7a-8e10-422a-94bf-7e7f8d7d8fd9/hello_world                      private python:3.7
+    ```
+
+3. We can invoke our action from the CLI:
+    ```bash
+    % ibmcloud fn action invoke hello_world --result
+    {
+        "message": "Hello Random Bob"
+    }
+    % ibmcloud fn action invoke hello_world --result --param name Matt
+    {
+        "message": "Hello Matt"
+    }
+   ```
+   
+
+    
