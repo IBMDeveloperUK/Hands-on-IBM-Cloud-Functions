@@ -48,6 +48,13 @@ def main(dict):
     return { 'message': f'Hello {name}'}
 ```
 
+6. Click on 'Invoke with parameters' to set the parameters for the call
+
+![Change Action inputs screen](_images/functions6.png)
+
+7. Click 'Invoke' to now run the action with the parameters
+
+![Action output with parameters](_images/functions7.png)
 
 
 
