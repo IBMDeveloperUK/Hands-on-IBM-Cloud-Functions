@@ -43,7 +43,6 @@ set to *regional* and set `eu-gb` as the region..
   ![Cloud functions icon](_images/functions1.png)
 
 2. IMPORTANT: Create a new namespace for our functions:
-
   ![Create namespace drop down](_images/namespaces1.png)
 
 3. Give your namespace the name `tweakers` and choose the location, in this case we will use `London` to match our Object Storage.
