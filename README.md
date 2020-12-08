@@ -54,12 +54,12 @@ set to *regional* and the region is set correctly to your region.
 5. Actions take a dictionary parameter in which arguments to the function are marshalled. You can change the code to take a name, e.g.:
 
     ```python
-import sys
+    import sys
 
-def main(dict):
-    name = dict.get('name', 'Random Bob')
-    return { 'message': f'Hello {name}'}
-```
+    def main(dict):
+        name = dict.get('name', 'Random Bob')
+        return { 'message': f'Hello {name}'}
+    ```
 
 6. Click on 'Invoke with parameters' to set the parameters for the call
   ![Change Action inputs screen](_images/functions6.png)
