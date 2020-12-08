@@ -54,7 +54,7 @@ set to *regional* and set `eu-gb` as the region..
 5. Click on 'Action' form the list of entities
   ![Create entity page](_images/functions3.png)
 
-6. Name your action (e.g. 'hello world') and pick a runtime, in this case `python 3.7`:
+6. Name your action `hello_world` and pick a runtime, in this case `python 3.7`:
   ![Create an action page](_images/functions4.png)
 
 7. You will be taken to a page in which you can edit code yourself and click 'Invoke' to run it
