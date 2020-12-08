@@ -22,16 +22,13 @@ $ ibmcloud plugin install cloud-object-storage
 ## Create a Cloud Object Storage instance
 
 1. From the [IBM Cloud](https://cloud.ibm.com) homepage, click on the catalog and choose 'Cloud Object Storage'
-
   ![IBM Cloud homepage](_images/cos1.png)
 
 2. Create your free instance of Object Storage.
-
   ![IBM Cloud Object Storage creation screen](_images/cos2.png)
 
 3. Create *TWO* buckets that we will need for this workshop, give each bucket a name, and ensure that the resilience is
 set to *regional* and the region is set correctly to your region.
-
   ![Creating a bucket in COS](_images/cos3.png)
 
 4. We should have two buckets now:
