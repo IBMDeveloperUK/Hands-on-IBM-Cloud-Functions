@@ -5,6 +5,19 @@ This is a hands-on workshop walking through creating and using IBM Cloud Functio
 
 1. You will need an IBM Cloud account, which you can get for free signing up here: https://ibm.biz/ibm-cloud-functions-account-reg
 2. You will need to install the IBM Cloud CLI: https://www.ibm.com/cloud/cli
+3. log into IBM Cloud via the CLI and target the default group:
+
+```bash
+$ ibmcloud login --sso
+$ ibmcloud target --cf -g Default
+```
+
+4. Install the cloud functions and object storage plugins
+
+```bash
+$ ibmcloud plugin install cloud-functions
+$ ibmcloud plugin install cloud-object-storage
+```
 
 ## Create a Cloud Object Storage instance
 
@@ -15,6 +28,15 @@ This is a hands-on workshop walking through creating and using IBM Cloud Functio
 2. Create your free instance of Object Storage.
 
 ![IBM Cloud Object Storage creation screen](_images/cos2.png)
+
+3. Create *TWO* buckets that we will need for this workshop, give each bucket a name, and ensure that the resilience is
+set to *regional* and the region is set correctly to your region.
+
+![Creating a bucket in COS](_images/cos3.png)
+
+4. We should have two buckets now:
+
+![List of our two buckets](_images/cos4.png)
 
 # Creating a simple 'hello world' function via the Web Console
 
