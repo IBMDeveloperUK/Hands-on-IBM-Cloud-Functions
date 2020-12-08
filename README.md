@@ -9,7 +9,7 @@ This is a hands-on workshop walking through creating and using IBM Cloud Functio
 
 ```bash
 $ ibmcloud login --sso
-$ ibmcloud target --cf -g Default
+$ ibmcloud target -g Default
 ```
 
 4. Install the cloud functions and object storage plugins
@@ -28,7 +28,7 @@ $ ibmcloud plugin install cloud-object-storage
   ![IBM Cloud Object Storage creation screen](_images/cos2.png)
 
 3. Create a bucket that we will need for this workshop, give each bucket a name, and ensure that the resilience is
-set to *regional* and the region is set correctly to your region.
+set to *regional* and set `eu-gb` as the region..
   ![Creating a bucket in COS](_images/cos3.png)
   ![Naming the bucket](_images/cos4.png)
 
@@ -42,19 +42,26 @@ set to *regional* and the region is set correctly to your region.
 1. Click the Cloud Functions icon in the left menu:
   ![Cloud functions icon](_images/functions1.png)
 
-2. Click on 'Start Creating' on the IBM Cloud Functions homepage
+2. IMPORTANT: Create a new namespace for our functions:
+
+  ![Create namespace drop down](_images/namespaces1.png)
+
+3. Give your namespace the name `tweakers` and choose the location, in this case we will use `London` to match our Object Storage.
+  ![Details of our namespace](_images/namespaces2.png)
+
+4. Click on 'Start Creating' on the IBM Cloud Functions homepage
   ![Cloud functions homepage](_images/functions2.png)
 
-2. Click on 'Action' form the list of entities
+5. Click on 'Action' form the list of entities
   ![Create entity page](_images/functions3.png)
 
-3. Name your action (e.g. 'hello world') and pick a runtime, in this case `python 3.7`:
+6. Name your action (e.g. 'hello world') and pick a runtime, in this case `python 3.7`:
   ![Create an action page](_images/functions4.png)
 
-4. You will be taken to a page in which you can edit code yourself and click 'Invoke' to run it
+7. You will be taken to a page in which you can edit code yourself and click 'Invoke' to run it
   ![Code editor for an action](_images/functions5.png)
 
-5. Actions take a dictionary parameter in which arguments to the function are marshalled. You can change the code to take a name, e.g.:
+8. Actions take a dictionary parameter in which arguments to the function are marshalled. You can change the code to take a name, e.g.:
 
     ```python
     import sys
@@ -64,11 +71,14 @@ set to *regional* and the region is set correctly to your region.
         return { 'message': f'Hello {name}'}
     ```
 
-6. Click on 'Invoke with parameters' to set the parameters for the call
+9. Click on 'Invoke with parameters' to set the parameters for the call
   ![Change Action inputs screen](_images/functions6.png)
 
-7. Click 'Invoke' to now run the action with the parameters
+10. Click 'Invoke' to now run the action with the parameters
   ![Action output with parameters](_images/functions7.png)
 
 
 
+## Calling our function from the CLI
+
+```
