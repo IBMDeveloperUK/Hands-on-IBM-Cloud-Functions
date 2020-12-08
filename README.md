@@ -52,7 +52,7 @@ set to *regional* and the region is set correctly to your region.
   ![Code editor for an action](_images/functions5.png)
 
 5. Actions take a dictionary parameter in which arguments to the function are marshalled. You can change the code to take a name, e.g.:
-  ```python
+        ```python
 import sys
 
 def main(dict):
