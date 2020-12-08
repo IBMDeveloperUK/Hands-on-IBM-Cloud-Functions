@@ -37,6 +37,27 @@ set to *regional* and set `eu-gb` as the region..
 5. We should have two buckets now:
   ![List of our two buckets](_images/cos5.png)
 
+## Create a trigger for our cloud storage instance
+
+1. Click the Cloud Functions icon in the left menu: \
+  ![Cloud functions icon](_images/functions1.png)
+
+
+2. Click on 'Start Creating' and then 'Trigger':
+  ![Create entity screen](_images/triggers2.png)
+
+3. Click on 'Cloud Object Storage' to create a Trigger for our COS instance:
+  ![Triggers screen](_images/triggers3.png)
+
+4. Click the link 'Grant Service Authorization'
+  ![Create Trigger screen](_images/triggers4.png)
+
+5. Fill in the details of the authorization grant. The Source Serive is `Functions`, the Source service instance in the namespace you created `tweakers`. The target service is `Cloud Object Storage` and the Service instance the name of the COS instance you created earlier. Select the `notifications manager` checkbox at the bottom and click 'Create'
+  ![Grant Service Authorisaztion](_images/triggers5.png)
+
+6. Refresh our triggers page and you should now be able to give the trigger a name `cos_trigger` and the COS instance should be selected. Ensure your first bucket is selected. Click `Create`
+  ![Create Trigger screenshot](_images/triggers6.png)
+
 # Creating a simple 'hello world' function via the Web Console
 
 1. Click the Cloud Functions icon in the left menu: \
@@ -104,6 +125,12 @@ set to *regional* and set `eu-gb` as the region..
         "message": "Hello Matt"
     }
    ```
-   
+
+4. We can also list our trigger we created at the start:
+    ```bash
+    % ic fn trigger list
+    triggers
+    /25ec8f7a-8e10-422a-94bf-7e7f8d7d8fd9/cos_trigger                      private
+    ```
 
     
