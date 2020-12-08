@@ -27,12 +27,14 @@ $ ibmcloud plugin install cloud-object-storage
 2. Create your free instance of Object Storage.
   ![IBM Cloud Object Storage creation screen](_images/cos2.png)
 
-3. Create *TWO* buckets that we will need for this workshop, give each bucket a name, and ensure that the resilience is
+3. Create a bucket that we will need for this workshop, give each bucket a name, and ensure that the resilience is
 set to *regional* and the region is set correctly to your region.
   ![Creating a bucket in COS](_images/cos3.png)
   ![Naming the bucket](_images/cos4.png)
 
-4. We should have two buckets now:
+4. Repeat the step above again to create a second bucket.
+
+5. We should have two buckets now:
   ![List of our two buckets](_images/cos5.png)
 
 # Creating a simple 'hello world' function via the Web Console
