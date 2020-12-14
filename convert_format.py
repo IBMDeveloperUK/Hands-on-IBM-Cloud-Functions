@@ -43,7 +43,11 @@ def main(args):
     audio = stream.audio
     audio = audio.filter('volumedetect')
     pipeline = ffmpeg.output(audio,
-                             get_output_url(output_key))
+                             get_output_url(output_key),
+                             format='wav',
+                             method='PUT',
+                             seekable=0,
+    )
 
     cmd = pipeline.compile()
     print("ffmpeg command to run: ", cmd)
