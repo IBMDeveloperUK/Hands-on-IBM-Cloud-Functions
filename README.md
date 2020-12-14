@@ -4,8 +4,9 @@ This is a hands-on workshop walking through creating and using IBM Cloud Functio
 ## Pre-requisites
 
 1. You will need an IBM Cloud account, which you can get for free signing up here: https://ibm.biz/ibm-cloud-functions-account-reg
-2a. You will either need to install the IBM Cloud CLI locally: https://www.ibm.com/cloud/cli or
-2b. You can use the IBM Cloud Shell in your web browser: https://cloud.ibm.com/shell *(ensure you change the location to `Frankfurt` if not already there)*
+2. There are two ways to access the CLI for IBM Cloud:
+   * You can install the IBM Cloud CLI locally: https://www.ibm.com/cloud/cli or
+   * You can use the IBM Cloud Shell in your web browser: https://cloud.ibm.com/shell *(ensure you change the location to `Frankfurt` if not already there)*
 3. log into IBM Cloud via the CLI and target the default group:
 
 ```bash
