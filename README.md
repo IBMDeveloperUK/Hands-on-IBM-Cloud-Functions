@@ -4,15 +4,17 @@ This is a hands-on workshop walking through creating and using IBM Cloud Functio
 ## Pre-requisites
 
 1. You will need an IBM Cloud account, which you can get for free signing up here: https://ibm.biz/ibm-cloud-functions-account-reg
-2. You will need to install the IBM Cloud CLI: https://www.ibm.com/cloud/cli
+2a. You will either need to install the IBM Cloud CLI locally: https://www.ibm.com/cloud/cli or
+2b. You can use the IBM Cloud Shell in your web browser: https://cloud.ibm.com/shell *(ensure you change the location to `Frankfurt` if not already there)*
 3. log into IBM Cloud via the CLI and target the default group:
 
 ```bash
 $ ibmcloud login --sso
-$ ibmcloud target -g Default
+$ ibmcloud target -g Default --cf
 ```
 
-4. Install the cloud functions and object storage plugins
+
+4. (If installing locally) Install the cloud functions and object storage plugins
 
 ```bash
 $ ibmcloud plugin install cloud-functions
@@ -28,7 +30,7 @@ $ ibmcloud plugin install cloud-object-storage
   ![IBM Cloud Object Storage creation screen](_images/cos2.png)
 
 3. Create a bucket that we will need for this workshop, give each bucket a name, and ensure that the resilience is
-set to *regional* and set `eu-gb` as the region..
+set to *regional* and set `eu-de` as the region. 
   ![Creating a bucket in COS](_images/cos3.png)
   ![Naming the bucket](_images/cos4.png)
 
@@ -36,6 +38,12 @@ set to *regional* and set `eu-gb` as the region..
 
 5. We should have two buckets now:
   ![List of our two buckets](_images/cos5.png)
+
+6. Create some service credentials for us to use later in our cloud functions. Click on "service credentials" on the left
+  ![Service credentials screen](_images/service_creds1.png)
+
+7. Click blue "New credential" button top right of screen. The default name and role (writer) are good. *Ensure that you enable "Include HMAC Credential"*
+  ![Create new service credential](_images/service_creds2.png)
 
 ## Create a trigger for our cloud storage instance
 
@@ -101,6 +109,11 @@ set to *regional* and set `eu-gb` as the region..
 
 ## Calling our function from the CLI
 
+1. First we need to target the Default resource group
+    ```bash
+    % https://cloud.ibm.com/shell
+    
+
 1. First we need to target the `tweakers` namespace
     ```bash
     % ibmcloud fn namespace target tweakers
@@ -133,4 +146,46 @@ set to *regional* and set `eu-gb` as the region..
     /25ec8f7a-8e10-422a-94bf-7e7f8d7d8fd9/cos_trigger                      private
     ```
 
+5. Download the example python code to convert a movie to a sound file:
+    ```bash
+    % curl https://raw.githubusercontent.com/IBMDeveloperUK/Hands-on-IBM-Cloud-Functions/main/convert_format.py -o convert_format.py
+    ```
+
+6. Create a package for our functions called `tweakers` in which we will set various default parameters
+    ```bash
+    % ic fn package create tweakers --param geo eu-de --param endpoint s3.private.eu-de.cloud-object-storage.appdomain.cloud
+    ```
+
+7. Bind the service credentials from our COS instance to the package so our function can read/write to our COS buckets
+    ```bash
+    % ibmcloud fn service bind cloud-object-storage tweakers --instance "Cloud Object Storage-pb"
+    ```
     
+8. Create our action. This action uses a docker image, that has `ffmpeg` installed. We set the parameters for our buckets as above. Change them for the names you created. We also give it 2GB of RAM and a 10 minute timeout in case we want to process large files.
+    ```bash
+    % ic fn action update tweakers/convert_format convert_format.py --docker choirless/choirless_py_actions:release-0.23 --timeout 600000 --memory 2048 --param bucket1 tweakers-matt-1 --param bucket2 tweakers-matt-2
+    ```
+
+9. Upload a test movie to our first cost bucket (`tweakers-matt-1` in my case) by dragging and dropping it in the bucket view in the web
+
+10. Test our function manually. Give it the name of the file you uploaded before
+    ```bash
+    % ic fn action invoke convert_format --param key matt.mkv --result
+    ```
+
+11. Check in the second COS bucket, you should see a `.wav` file. This is our converted file.
+
+12. To hook the trigger up to the action so it fires automatically, you need to create a rule to link the two:
+
+    ```bash
+    % ic fn rule create bucket_upload_rule cos_trigger tweakers/convert_format
+    ```
+
+13. Test it by dragging another file (or the same again) to the first COS bucket. You will see the new converted file appear in the second bucket. You can also see the activations:
+    ```bash
+    % ic fn activation list
+    Datetime            Activation ID                    Kind      Start Duration   Status          Entity
+    2020-12-14 17:11:00 09cac1a2fac748de8ac1a2fac7d8dea8 blackbox  warm  649ms      success         323b2dbb-5...6f7915f/convert_format:0.0.1
+    2020-12-14 17:11:00 02ace321c40841fcace321c408a1fc40 unknown   warm  0s         success         323b2dbb-5...6f7915f/cos_trigger:0.0.1
+    ```
+
